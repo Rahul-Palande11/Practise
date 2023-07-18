@@ -1,4 +1,4 @@
-name: Artifact Job
+name: example
 on: push
 jobs:
   test:
@@ -24,11 +24,6 @@ jobs:
       - name: Build-code
         run: npm run build
         working-directory: ./react-app 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-files
-          path: build
   deploy:
       needs: build
       runs-on: ubuntu-latest
