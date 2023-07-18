@@ -1,0 +1,37 @@
+name: Artifact Job
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Install-Dependencies
+        run: npm install
+        working-directory: ./react-app
+      - name: Test-code
+        run: npm test
+        working-directory: ./react-app   
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Install-Dependencies
+        run: npm install
+        working-directory: ./react-app 
+      - name: Build-code
+        run: npm run build
+        working-directory: ./react-app 
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-files
+          path: build
+  deploy:
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+        - name: Deploy
+          run: echo "Deploying..."      
+      
