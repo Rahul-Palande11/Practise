@@ -1,0 +1,28 @@
+name: Build-Test 2 Different Jobs
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Install-Dependencies
+        run: npm install
+        working-directory: ./my-react-app
+      - name: Test-code
+        run: npm test
+        working-directory: ./my-react-app   
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Install-Dependencies
+        run: npm install
+        working-directory: ./my-react-app 
+      - name: Build-code
+        run: npm run build
+        working-directory: ./my-react-app 
+      - name: Deploy code
+        run: echo "Deploying..."
+      
